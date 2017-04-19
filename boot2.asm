@@ -1,9 +1,21 @@
 org 0x0500
 jmp 0x0000:start
  
-string1: db "4Foda-se", 10, 10, 10, 13
+string1: db "Foda-se", 10, 10, 10, 13
 strlen1: equ $-string1
- 
+
+sddsprintf:
+    mov SI, BX ; moves string to SI
+    mov AH, 0x0e    ; print char 
+    int 0x10        ; video int
+      
+    .loop lodsb
+          or AL,AL  ; check if end of string
+          jz halt   
+          int 0x10  ; print char
+          jmp .loop ; go to next char
+
+    ret 
 
 start:
     xor AX, AX
@@ -15,19 +27,12 @@ start:
 
     mov AH, 0xb ; set video color background
     mov BH, 0x0 ; ID da paleta de cores
-    mov BL, 4   ; red
+    mov BL, 0x0 ; black
     int 10h
       
-    mov SI, string1 ; moves string to SI
-    mov AH, 0x0e    ; print char 
-    int 0x10        ; video int
-      
-    .loop lodsb
-          or AL,AL  ; check if end of string
-          jz halt   
-          int 0x10  ; print char
-          jmp .loop ; go to next char
-    
+    mov BX, string1 ; moves string to BL
+    jmp sddsprintf  ; prints whatever is in BX
+
     halt:           HLT
             
 Kernel:
