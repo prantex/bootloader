@@ -3,14 +3,14 @@ jmp 0x0000: start
 
 start:
 
-	xor ax, ax ; zera ax xor é mais rapido que mov
-	mov ds, ax ; zera ds
+	xor AX, AX ; zera ax xor é mais rapido que mov
+	mov DS, AX ; zera ds
 
 
 reset:
 	
-	mov ah, 0
-	mov dl, 0
+	mov AH, 0
+	mov DL, 0
 	int 13h
 	jc reset
 
