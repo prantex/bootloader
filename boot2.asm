@@ -1,13 +1,14 @@
 org 0x0500
 jmp 0x0000:start
  
-string1: db "Foda-se", 10, 10, 10, 13
-strlen1: equ $-string1
+banner: db "______                 _        ",10,13,"| ___ \               | |       ",10,13,"| |_/ / __ _ _ __ __ _| |_ __ _ ",10,13,"| ___ \/ _` | '__/ _` | __/ _` |",10,13,"| |_/ / (_| | | | (_| | || (_| |",10,13,"\____/ \__,_|_|  \__,_|\__\__,_|",10,13
+split: db "==================================", 10 ,13
+version: db "0.0.1v # Feio mas funcional", 10,13
+end_str: db 10,10,10,10,10,10,10,10,10,10,10,10,13
 
 sddsprintf:
-    mov SI, BX ; moves string to SI
-    mov AH, 0x0e    ; print char 
-    int 0x10        ; video int
+    mov SI, BX      ; moves string to SI
+    mov AH, 0xe     ; print char 
       
     .loop lodsb
           or AL,AL  ; check if end of string
@@ -30,10 +31,20 @@ start:
     mov BL, 0x0 ; black
     int 10h
       
-    mov BX, string1 ; moves string to BL
+    mov BX, banner ; moves string to BL
     jmp sddsprintf  ; prints whatever is in BX
 
-    halt:           HLT
+    mov BX, version
+    jmp sddsprintf
+
+    mov BX, split
+    jmp sddsprintf
+
+    mov BX, split
+    jmp end_str
+
+halt:           
+    HLT
             
 Kernel:
 
