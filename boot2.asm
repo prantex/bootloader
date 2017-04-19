@@ -22,11 +22,11 @@ start:
     MOV ah, 0x0e    ; print char 
     INT 0x10        ; video int
       
-    .loop loadsb
-        OR al,al  ; check if end of string
-        NZ halt   
-        INT 0x10  ; print char
-        JMP .loop ; go to next char
+    .loop lodsb
+          OR al,al  ; check if end of string
+          JZ halt   
+          INT 0x10  ; print char
+          JMP .loop ; go to next char
     
     halt:           HLT
             
@@ -47,4 +47,4 @@ Kernel:
     MOV dl, 0x00    ; drive 
     int 13h 
 
-    jmp 0x07e0 : 0x0bkbkjbkj
+    jmp 0x07e0 : 0x0

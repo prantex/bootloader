@@ -3,7 +3,7 @@ jmp 0x0000: start
 
 start:
 
-	xor ax, ax ; zera ax
+	xor ax, ax ; zera ax xor é mais rapido que mov
 	mov ds, ax ; zera ds
 
 
@@ -22,10 +22,7 @@ boot2:
 	mov es, ax
 	xor bx, bx ; zera bx
 
-
-	; Ler o disco
-
-	mov ah, 02h  ; seta para ler
+	mov ah, 02h  ; seta para ler disco
 	mov al, 0x02 ; 2 setores
 	mov ch, 0x00 ; trilha 0
 	mov cl, 0x02 ; setor 2
