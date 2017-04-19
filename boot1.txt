@@ -1,10 +1,10 @@
-org 0x7c00
+org 0x7c00 ; seta offset para 0x7c00
 jmp 0x0000: start
 
 start:
 
-	xor ax, ax
-	mov ds, ax
+	xor ax, ax ; zera ax
+	mov ds, ax ; zera ds
 
 
 reset:
@@ -18,20 +18,20 @@ reset:
 boot2:
 	; Escolhe o espaço de memoria que será utilizado 
 
-	mov ax, 0x0050 ; tem que saber qual é ...
+	mov ax, 0x0050 ; memoria onde o boot2 sera carregado
 	mov es, ax
-	xor bx, bx
+	xor bx, bx ; zera bx
 
 
 	; Ler o disco
 
-	mov ah, 02h
-	mov al, 0x02 ; esse é o se quizer asegurar num total 2 setores
-	mov ch, 0x00 ;trilha 0
-	mov cl, 0x02 ;setor 2
-	mov dh, 0x00 ;cabeça 0
-	mov dl, 0x00 ;drive
-	int 13h; int de disco;
+	mov ah, 02h  ; seta para ler
+	mov al, 0x02 ; 2 setores
+	mov ch, 0x00 ; trilha 0
+	mov cl, 0x02 ; setor 2
+	mov dh, 0x00 ; cabeça 0
+	mov dl, 0x00 ; drive
+	int 13h; int de disco
 
 	jc boot2 ; se der algum erro ele volta a operação
 

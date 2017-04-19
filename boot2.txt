@@ -138,7 +138,3 @@ Kernelzin:
     int 13h 
 
     jmp 0x07e0 : 0x0
-
-     
-     
-
