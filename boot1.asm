@@ -31,7 +31,7 @@ boot2:
 	mov cl, 0x02 ; setor 2
 	mov dh, 0x00 ; cabeça 0
 	mov dl, 0x00 ; drive
-	int 13h; int de disco
+	int 13h      ; int de disco
 
 	jc boot2 ; se der algum erro ele volta a operação
 
