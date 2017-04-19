@@ -3,31 +3,31 @@ jmp 0x0000: start
 
 start:
 
-	xor ax, ax ; zera ax xor é mais rapido que mov
-	mov ds, ax ; zera ds
+	xor AX, AX ; zera ax xor é mais rapido que mov
+	mov DS, AX ; zera ds
 
 
 reset:
 	
-	mov ah, 0
-	mov dl, 0
+	mov AH, 0
+	mov DL, 0
 	int 13h
 	jc reset
 
 
 boot2:
-	; Escolhe o espaço de memoria que será utilizado 
+	; escolhe o espaço de memoria que será utilizado 
 
-	mov ax, 0x0050 ; memoria onde o boot2 sera carregado
-	mov es, ax
-	xor bx, bx ; zera bx
+	mov AX, 0x0050 ; memoria onde o boot2 sera carregado
+	mov ES, AX
+	xor BX, BX ; zera bx
 
-	mov ah, 02h  ; seta para ler disco
-	mov al, 0x02 ; 2 setores
-	mov ch, 0x00 ; trilha 0
-	mov cl, 0x02 ; setor 2
-	mov dh, 0x00 ; cabeça 0
-	mov dl, 0x00 ; drive
+	mov AH, 02h  ; seta para ler disco
+	mov AL, 0x02 ; 2 setores
+	mov CH, 0x00 ; trilha 0
+	mov CL, 0x02 ; setor 2
+	mov DH, 0x00 ; cabeça 0
+	mov DL, 0x00 ; drive
 	int 13h      ; int de disco
 
 	jc boot2 ; se der algum erro ele volta a operação
