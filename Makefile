@@ -49,7 +49,7 @@ disasm:
 	ndisasm $(boot1).asm
 
 launchqemu:
-	qemu-system-i386 -soundhw pcspkr -fda $(bootdisk)
+	qemu-system-i386 -soundhw pcspk -fda $(bootdisk)
 	
 clean:
 	rm -f *.bin $(bootdisk) *~

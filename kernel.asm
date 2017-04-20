@@ -1,5 +1,5 @@
 org 0x7e00
-
+     
 jmp start
 
 blue_screen_of_death: db 10,10,10,10,10,10,10,"                                    Windows",10,10,13,"    A fatal exception 0E has occurred at 0028:C562F1B7 in VXD ctpci9x(05)",10,13,"    + 00001853. The current application will be terminated.",10,10,13,"    *   Press any key to terminate the current application.",10,13,"    *   Press CNTRL+ALT+DEL again to restart your computer. You will",10,13,"        lose any unsaved information in all applications.",10,10,13,"                         Press any key to continue ",0
@@ -52,7 +52,7 @@ sddsprintf :
 
     end : ret
 
-start:
+start: 
 
 	mov AH, 00h
     mov AL, 03h
@@ -61,16 +61,12 @@ start:
     mov AH, 0xb ; set video color background
     mov BH, 0x0 ; ID da paleta de cores
     mov BL, 0x1 ; blue of death
-    int 10h
+    int 10h  
 
     mov BL, 0xf ; white font
+
     mov SI, blue_screen_of_death
     call sddsprintf
-
-    mov AX, 4242
-    mov DX, 2
-
-    call beep
 
     call wait_input
 
@@ -82,23 +78,31 @@ start:
     mov AL, 0xA ; pixel color
     mov CX, 0    ; column
     mov DX, 0    ; row
+    
+    mov BX, 0    ; counter
 
+    .loop 
 
-
-    .loop
-
-		mov AH, 0Ch
+		mov AH, 0Ch    
 		mov BH, 0
 		int 10h       ; set pixel
-
+	
+		inc BX	 
 		inc CX
 		cmp CX, 320
 		je .zero_column
 
-		add AL,0xC  ; add 1 to color
-		jmp .loop
+		add AL,0x1  ; add 1 to color
+		cmp BX, 0xff
+		jne .loop 	
 
+	mov AH, 0xb ; set video color background
+    mov BH, 0x0 ; ID da paleta de cores
+    mov BL, 0x1 ; blue of death
+    int 10h 
 
+    call wait_input
+ 	
 	.zero_column :
 		mov CX, 0
 		inc DX
