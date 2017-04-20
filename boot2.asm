@@ -51,7 +51,7 @@ start:
     
     mov DI, 3
     
-repeat:
+repete:
     ; start delay
     delay:
           mov BP, 43690
@@ -70,7 +70,7 @@ repeat:
     
     dec DI
     cmp DI, 0
-    jne repeat
+    jne repete
 
     jmp Kernel
             
