@@ -5,8 +5,8 @@ banner: db "______                 _        ",10,13,"| ___ \               | |  
 split: db "==================================", 10 ,13
 version: db "0.0.1v # Feio mas funcional", 10,13
 end_str: db 10,10,10,10,10,10,10,10,10,10,10,10,13
-carregando: db "Loading", 10, 13
-ponto: db "."
+carregando: db "Loading", 10, 13, 0
+ponto: db "." , 0
 
 
 sddsprintf:
@@ -52,19 +52,16 @@ start:
     mov DI, 3
     
 repete:
-    ; start delay
-    delay:
-          mov BP, 43690
-          mov SI, 43690
-    delay2:
-          dec BP
-          nop
-          jnz delay2
-          dec SI
-          cmp SI,0    
-          jnz delay2
-    ; end delay
-     
+    ; 2 second delay (2,000,000 microseconds)
+    mov AX, 10000 ; place a 10000 decimal in ax
+    mov DX, 200 ; place 200 decimal in dx
+    mul DX ; multiply ax times dx and place
+    mov CX,DX ; the 32 bit product in dx:ax (lower 16 bits in ax)
+    mov DX,AX
+    xor AX,AX
+    mov AH, 86h 
+    int 15h
+    
     mov BX, ponto
     jmp sddsprintf
     
