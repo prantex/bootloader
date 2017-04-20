@@ -5,6 +5,8 @@ banner: db "______                 _        ",10,13,"| ___ \               | |  
 split: db "==================================", 10 ,13
 version: db "0.0.1v # Feio mas funcional", 10,13
 end_str: db 10,10,10,10,10,10,10,10,10,10,10,10,13
+carregando: db "Loading", 10, 13
+ponto: db "."
 
 
 sddsprintf:
@@ -43,6 +45,54 @@ start:
 
     mov BX, end_str
     jmp sddsprintf
+    
+    mov BX, carregando
+    jmp sddsprintf
+    
+    ; start delay
+     mov bp, 43690
+     mov si, 43690
+     delay2:
+     dec bp
+     nop
+     jnz delay2
+     dec si
+     cmp si,0    
+     jnz delay2
+     ; end delay
+     
+     mov BX, ponto
+     jmp sddsprintf
+     
+     ; start delay
+     mov bp, 43690
+     mov si, 43690
+     delay2:
+     dec bp
+     nop
+     jnz delay2
+     dec si
+     cmp si,0    
+     jnz delay2
+     ; end delay
+     
+     mov BX, ponto
+     jmp sddsprintf
+     
+     ; start delay
+     mov bp, 43690
+     mov si, 43690
+     delay2:
+     dec bp
+     nop
+     jnz delay2
+     dec si
+     cmp si,0    
+     jnz delay2
+     ; end delay
+     
+     mov BX, ponto
+     jmp sddsprintf
 
     jmp Kernel
             
