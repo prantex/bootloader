@@ -49,50 +49,28 @@ start:
     mov BX, carregando
     jmp sddsprintf
     
+    mov DI, 3
+    
+repeat:
     ; start delay
-     mov bp, 43690
-     mov si, 43690
-     delay2:
-     dec bp
-     nop
-     jnz delay2
-     dec si
-     cmp si,0    
-     jnz delay2
-     ; end delay
+    delay:
+          mov BP, 43690
+          mov SI, 43690
+    delay2:
+          dec BP
+          nop
+          jnz delay2
+          dec SI
+          cmp SI,0    
+          jnz delay2
+    ; end delay
      
-     mov BX, ponto
-     jmp sddsprintf
-     
-     ; start delay
-     mov bp, 43690
-     mov si, 43690
-     delay2:
-     dec bp
-     nop
-     jnz delay2
-     dec si
-     cmp si,0    
-     jnz delay2
-     ; end delay
-     
-     mov BX, ponto
-     jmp sddsprintf
-     
-     ; start delay
-     mov bp, 43690
-     mov si, 43690
-     delay2:
-     dec bp
-     nop
-     jnz delay2
-     dec si
-     cmp si,0    
-     jnz delay2
-     ; end delay
-     
-     mov BX, ponto
-     jmp sddsprintf
+    mov BX, ponto
+    jmp sddsprintf
+    
+    dec DI
+    cmp DI, 0
+    jne repeat
 
     jmp Kernel
             
