@@ -11,7 +11,7 @@ boot2size=2
 
 # preencha esses valores para rodar o kernel
 kernel=kernel
-kernelpos=3
+kernelpos=4
 kernelsize=50
 
 ASMFLAGS=-f bin

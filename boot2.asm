@@ -6,17 +6,18 @@ split: db "==================================", 10 ,13
 version: db "0.0.1v # Feio mas funcional", 10,13
 end_str: db 10,10,10,10,10,10,10,10,10,10,10,10,13
 
+
 sddsprintf:
     mov SI, BX      ; moves string to SI
     mov AH, 0xe     ; print char 
       
     .loop lodsb
           or AL,AL  ; check if end of string
-          jz halt   
+          jz .end   
           int 0x10  ; print char
           jmp .loop ; go to next char
 
-    ret 
+    .end ret 
 
 start:
     xor AX, AX
@@ -40,11 +41,10 @@ start:
     mov BX, split
     jmp sddsprintf
 
-    mov BX, split
-    jmp end_str
+    mov BX, end_str
+    jmp sddsprintf
 
-halt:           
-    HLT
+    jmp Kernel
             
 Kernel:
 
@@ -52,7 +52,6 @@ Kernel:
     mov AX, 0x07e0  ;segmento do kernel
     mov ES, AX  
     xor BX, BX      ;offset do kernel
-    
 
     ;ler setor do disco
     mov AH, 0x02    ; já explicado no boot1
