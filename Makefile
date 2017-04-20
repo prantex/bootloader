@@ -11,7 +11,7 @@ boot2size=2
 
 # preencha esses valores para rodar o kernel
 kernel=kernel
-kernelpos=4
+kernelpos=3
 kernelsize=50
 
 ASMFLAGS=-f bin
@@ -22,7 +22,7 @@ file = $(bootdisk)
 all: clean mydisk boot1 write_boot1 boot2 write_boot2 kernel write_kernel hexdump launchqemu
 
 mydisk: 
-	dd if=/dev/zero of=$(bootdisk) bs=$(blocksize) count=$(disksize)
+	dd if=/dev/zero of=$(bootdisk) bs=$(blocksize) count=$(disksize) status=noxfer
 
 boot1: 
 	nasm $(ASMFLAGS) $(boot1).asm -o $(boot1).bin 
@@ -34,10 +34,10 @@ kernel:
 	nasm $(ASMFLAGS) $(kernel).asm -o $(kernel).bin
 
 write_boot1:
-	dd if=$(boot1).bin of=$(bootdisk) bs=$(blocksize) count=1 conv=notrunc
+	dd if=$(boot1).bin of=$(bootdisk) bs=$(blocksize) count=1 conv=notrunc status=noxfer
 
 write_boot2:
-	dd if=$(boot2).bin of=$(bootdisk) bs=$(blocksize) seek=$(boot2pos) count=$(boot2size) conv=notrunc
+	dd if=$(boot2).bin of=$(bootdisk) bs=$(blocksize) seek=$(boot2pos) count=$(boot2size) conv=notrunc status=noxfer
 
 write_kernel:
 	dd if=$(kernel).bin of=$(bootdisk) bs=$(blocksize) seek=$(kernelpos) count=$(kernelsize) conv=notrunc
@@ -49,7 +49,7 @@ disasm:
 	ndisasm $(boot1).asm
 
 launchqemu:
-	qemu-system-i386 -fda $(bootdisk)
+	qemu-system-i386 -soundhw pcspkr -fda $(bootdisk)
 	
 clean:
 	rm -f *.bin $(bootdisk) *~
